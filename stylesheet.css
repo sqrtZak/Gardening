@@ -18,13 +18,6 @@ header {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
@@ -38,31 +31,68 @@ nav {
     font-size: 2rem;
 }
 
-.nav-links {
+/* Only target nav */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;  /* safe scroll if too tight */
+    -webkit-overflow-scrolling: touch;
+}
+
+nav .nav-links {
     display: flex;
     list-style: none;
     gap: 2rem;
+    flex: 0 1 auto;        /* shrink if needed, but don’t stretch */
+    justify-content: flex-end;
+    min-width: 0;
 }
 
-.nav-links a {
+nav .nav-links a {
+    flex-shrink: 1;
     color: white;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 25px;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    white-space: nowrap;
 }
 
-.nav-links a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    
+/* Responsive adjustments just for nav */
+@media (max-width: 900px) {
+    nav .nav-links {
+        gap: 1rem;
+    }
+
+    nav .nav-links a {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    nav .logo {
+        font-size: 1.4rem;
+    }
 }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .nav-links {
+        gap: 1rem; /* smaller gap */
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem; /* tighter padding */
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+}
+
+
 
 /* Hero Section */
 .hero {
@@ -190,7 +220,7 @@ nav {
 }
 
 .gallery-item {
-    background: white;
+
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
@@ -204,15 +234,16 @@ nav {
 }
 
 .gallery-image {
-    width: 100%;
-    height: 250px;
+    justify-content: center
+    width: ;
+    height: 720px;
     background: linear-gradient(135deg, #4a7c59 0%, #6a9c79 100%);
     position: relative;
     overflow: hidden;
 }
 
+
 .gallery-image::before {
-    content: '🌱';
     position: absolute;
     top: 50%;
     left: 50%;
@@ -221,8 +252,9 @@ nav {
     opacity: 0.3;
 }
 
+
 .gallery-image::after {
-    content: 'Beautiful Garden Design';
+    content: '';
     position: absolute;
     bottom: 20px;
     left: 20px;
@@ -236,7 +268,7 @@ nav {
 .gallery-item:nth-child(3) .gallery-image::before { content: '🌿'; }
 .gallery-item:nth-child(4) .gallery-image::before { content: '🏡'; }
 
-.gallery-item:nth-child(2) .gallery-image::after { content: 'Landscape Maintenance'; }
+.gallery-item:nth-child(2) .gallery-image::after { content: ''; }
 .gallery-item:nth-child(3) .gallery-image::after { content: 'Plant Installation'; }
 .gallery-item:nth-child(4) .gallery-image::after { content: 'Garden Planning'; }
 

@@ -5,6 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Green Thumb Gardens</title>
     <link rel="stylesheet" href="stylesheet.css">
+    <style>
+        /* Add these styles to your stylesheet.css or keep them here */
+        .form-elements {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .form-elements.submitting {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #4a7c59 0%, #6a9c79 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .error-message {
+            display: none;
+            background: linear-gradient(135deg, #dc3545 0%, #e85d75 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .submit-btn.loading {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .submit-btn.loading::after {
+            content: ' ⏳';
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -12,9 +66,8 @@
             <div class="logo">Green Thumb Gardens</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#gallery">Gallery</a></li>
-                <li><a href="index.html#services">Services</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -30,27 +83,44 @@
             <div class="contact-container">
                 <div class="contact-form">
                     <h2>Send Us a Message</h2>
-                    <div class="success-message" id="successMessage">
+                    
+                    <div class="success-message" id="success-msg">
                         <strong>Thank you!</strong> Your message has been sent successfully. We'll get back to you within 24 hours.
                     </div>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required>
+                    
+                    <div class="error-message" id="error-msg">
+                        <strong>Oops!</strong> There was an error sending your message. Please try again or email us directly.
+                    </div>
+                    
+                    <form 
+                        id="gform" 
+                        method="POST" 
+                        class="pure-form pure-form-stacked"
+                        action="https://script.google.com/macros/s/AKfycbyEdU2bVujyhP1ePc4EBtmibglnkO5QQ3Nv_14v07yG7F7DKVsx8T9lXUcBmX1r7ZVtBA/exec">
+                        
+                        <div class="form-elements">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                                                                                    
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" placeholder="Tell us about your project, timeline, and any specific requirements..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" id="submit-form" class="submit-btn">Send Message</button>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" placeholder="Tell us about your project, timeline, and any specific requirements..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
                     </form>
                 </div>
 
@@ -60,16 +130,8 @@
                     <div class="info-item">
                         <div class="info-icon">📍</div>
                         <div class="info-content">
-                            <h3>Visit Our Office</h3>
-                            <p>123 Garden Lane<br>Green City, GC 12345</p>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">📞</div>
-                        <div class="info-content">
-                            <h3>Call Us</h3>
-                            <p>(555) 123-4567</p>
+                            <h3>Service Area</h3>
+                            <p>Great Yarmouth & Norfolk<br>United Kingdom</p>
                         </div>
                     </div>
 
@@ -77,7 +139,7 @@
                         <div class="info-icon">✉️</div>
                         <div class="info-content">
                             <h3>Email Us</h3>
-                            <p>info@greenthumbgardens.com</p>
+                            <p>greengardeningnorfolk@gmail.com</p>
                         </div>
                     </div>
 
@@ -85,17 +147,8 @@
                         <div class="info-icon">🌐</div>
                         <div class="info-content">
                             <h3>Follow Us</h3>
-                            <p>@greenthumbgardens</p>
+                            <p>www.gardeningwebsite.com</p>
                         </div>
-                    </div>
-
-                    <div class="hours-section">
-                        <h3>📅 Business Hours</h3>
-                        <ul class="hours-list">
-                            <li><span>Monday - Friday</span><span>8:00 AM - 6:00 PM</span></li>
-                            <li><span>Saturday</span><span>9:00 AM - 4:00 PM</span></li>
-                            <li><span>Sunday</span><span>By Appointment</span></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -106,9 +159,9 @@
         <div class="container">
             <div class="map-container">
                 <div class="map-placeholder">
-                    <h3>📍 Find Us Here</h3>
-                    <p>123 Garden Lane, Green City, GC 12345</p>
-                    <p style="margin-top: 1rem; opacity: 0.8;">Interactive map would be embedded here<br>with your actual business location</p>
+                    <h3>📍 Serving Great Yarmouth & Norfolk</h3>
+                    <p>Professional gardening services across the region</p>
+                    <p style="margin-top: 1rem; opacity: 0.8;">Contact us for service in your area</p>
                 </div>
             </div>
         </div>
@@ -119,8 +172,8 @@
             <h2>Ready to Get Started?</h2>
             <p>Let's transform your outdoor space into the garden of your dreams</p>
             <div class="cta-buttons">
-                <a href="tel:555-123-4567" class="cta-button">Contact Us</a>
-                <a href="index.html" class="cta-button secondary">View Our Work</a>
+                <a href="contact.html" class="cta-button">Contact Us</a>
+                <a href="gallery.html" class="cta-button secondary">View Our Work</a>
             </div>
         </div>
     </section>
@@ -133,60 +186,169 @@
         </div>
     </footer>
 
-    <script>
-        // Form submission handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+    <script data-cfasync="false" type="text/javascript">
+        (function() {
+            const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzo6WVQsLcQcQwuRSCllT3V4xXJhQNlVhJKuwgVNbNcJVfPNfDuFI7lxJz0sJ28c3r80Q/exec';
             
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
+            // Get form elements
+            const form = document.getElementById('gform');
+            const submitButton = document.getElementById('submit-form');
+            const formElements = document.querySelector('.form-elements');
+            const successMsg = document.getElementById('success-msg');
+            const errorMsg = document.getElementById('error-msg');
             
-            // Simple validation
-            if (!data.name || !data.email || !data.message) {
-                alert('Please fill in all required fields.');
-                return;
+            // Set the form action URL
+            form.action = GOOGLE_APPS_SCRIPT_URL;
+            
+            // Function to show success message
+            function showSuccess() {
+                successMsg.style.display = 'block';
+                errorMsg.style.display = 'none';
+                form.reset();
+                submitButton.classList.remove('loading');
+                submitButton.disabled = false;
+                formElements.classList.remove('submitting');
+                
+                // Scroll to success message
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide success message after 8 seconds
+                setTimeout(function() {
+                    successMsg.style.display = 'none';
+                }, 8000);
             }
             
-            // Show success message
-            const successMessage = document.getElementById('successMessage');
-            successMessage.style.display = 'block';
+            // Function to show error message
+            function showError() {
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+                submitButton.classList.remove('loading');
+                submitButton.disabled = false;
+                formElements.classList.remove('submitting');
+                
+                // Scroll to error message
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide error message after 8 seconds
+                setTimeout(function() {
+                    errorMsg.style.display = 'none';
+                }, 8000);
+            }
             
-            // Reset form
-            this.reset();
-            
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        
-            // In a real application, you would send the data to your server here
-            console.log('Form data:', data);
-        });
-
-        // Add smooth scrolling for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            // Add submit event listener
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                
+                // Check if Google Apps Script URL is configured
+                if (GOOGLE_APPS_SCRIPT_URL.includes('YOUR_SCRIPT_ID_HERE')) {
+                    alert('Please configure your Google Apps Script URL in the JavaScript code.');
+                    return;
                 }
-            });
-        });
-
-        // Add focus animation to form inputs
-        document.querySelectorAll('input, select, textarea').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.02)';
-                this.parentElement.style.transition = 'transform 0.3s ease';
+                
+                // Validate required fields
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const message = document.getElementById('message').value.trim();
+                
+                if (!name || !email || !phone || !message) {
+                    alert('Please fill in all required fields (marked with *).');
+                    return;
+                }
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                
+                // Show loading state
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+                formElements.classList.add('submitting');
+                
+                // Hide any previous messages
+                successMsg.style.display = 'none';
+                errorMsg.style.display = 'none';
+                
+                // Create form data
+                const formData = new FormData(form);
+                
+                // Submit to Google Apps Script with timeout and retry
+                const submitWithRetry = (retries = 2) => {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors', // Required for Google Apps Script
+                        signal: controller.signal
+                    })
+                    .then(response => {
+                        clearTimeout(timeoutId);
+                        // With no-cors, we can't check response status, so assume success
+                        console.log('Form submitted successfully');
+                        showSuccess();
+                    })
+                    .catch(error => {
+                        clearTimeout(timeoutId);
+                        console.error('Submission error:', error);
+                        
+                        if (retries > 0 && !controller.signal.aborted) {
+                            console.log(`Retrying... ${retries} attempts left`);
+                            setTimeout(() => submitWithRetry(retries - 1), 2000);
+                        } else {
+                            showError();
+                        }
+                    });
+                };
+                
+                submitWithRetry();
             });
             
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
+            // Add focus animation to form inputs
+            document.querySelectorAll('input, select, textarea').forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                    this.parentElement.style.transition = 'transform 0.3s ease';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
             });
-        });
+            
+            // Add smooth scrolling for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Add subtle hover effects to form groups
+            document.querySelectorAll('.form-group').forEach(group => {
+                group.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(74, 124, 89, 0.05)';
+                    this.style.borderRadius = '8px';
+                    this.style.padding = '0.5rem';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                group.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.padding = '0';
+                });
+            });
+        })();
     </script>
 </body>
 </html>
