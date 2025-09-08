@@ -6,7 +6,6 @@
     <title>Contact Us - Leaf it to Pip</title>
     <link rel="stylesheet" href="stylesheet.css">
     <style>
-        /* Add these styles to your stylesheet.css or keep them here */
         .form-elements {
             opacity: 1;
             transition: opacity 0.3s ease;
@@ -189,18 +188,15 @@
     <script data-cfasync="false" type="text/javascript">
         (function() {
             const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzo6WVQsLcQcQwuRSCllT3V4xXJhQNlVhJKuwgVNbNcJVfPNfDuFI7lxJz0sJ28c3r80Q/exec';
-            
-            // Get form elements
+
             const form = document.getElementById('gform');
             const submitButton = document.getElementById('submit-form');
             const formElements = document.querySelector('.form-elements');
             const successMsg = document.getElementById('success-msg');
             const errorMsg = document.getElementById('error-msg');
             
-            // Set the form action URL
             form.action = GOOGLE_APPS_SCRIPT_URL;
             
-            // Function to show success message
             function showSuccess() {
                 successMsg.style.display = 'block';
                 errorMsg.style.display = 'none';
@@ -209,16 +205,13 @@
                 submitButton.disabled = false;
                 formElements.classList.remove('submitting');
                 
-                // Scroll to success message
                 successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                // Hide success message after 8 seconds
                 setTimeout(function() {
                     successMsg.style.display = 'none';
                 }, 8000);
             }
             
-            // Function to show error message
             function showError() {
                 errorMsg.style.display = 'block';
                 successMsg.style.display = 'none';
@@ -226,26 +219,16 @@
                 submitButton.disabled = false;
                 formElements.classList.remove('submitting');
                 
-                // Scroll to error message
                 errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                // Hide error message after 8 seconds
                 setTimeout(function() {
                     errorMsg.style.display = 'none';
                 }, 8000);
             }
             
-            // Add submit event listener
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Check if Google Apps Script URL is configured
-                if (GOOGLE_APPS_SCRIPT_URL.includes('YOUR_SCRIPT_ID_HERE')) {
-                    alert('Please configure your Google Apps Script URL in the JavaScript code.');
-                    return;
-                }
-                
-                // Validate required fields
                 const name = document.getElementById('name').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const phone = document.getElementById('phone').value.trim();
@@ -256,39 +239,33 @@
                     return;
                 }
                 
-                // Email validation
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     alert('Please enter a valid email address.');
                     return;
                 }
                 
-                // Show loading state
                 submitButton.classList.add('loading');
                 submitButton.disabled = true;
                 formElements.classList.add('submitting');
                 
-                // Hide any previous messages
                 successMsg.style.display = 'none';
                 errorMsg.style.display = 'none';
                 
-                // Create form data
                 const formData = new FormData(form);
                 
-                // Submit to Google Apps Script with timeout and retry
                 const submitWithRetry = (retries = 2) => {
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                    const timeoutId = setTimeout(() => controller.abort(), 10000);
                     
                     fetch(form.action, {
                         method: 'POST',
                         body: formData,
-                        mode: 'no-cors', // Required for Google Apps Script
+                        mode: 'no-cors',
                         signal: controller.signal
                     })
                     .then(response => {
                         clearTimeout(timeoutId);
-                        // With no-cors, we can't check response status, so assume success
                         console.log('Form submitted successfully');
                         showSuccess();
                     })
@@ -308,7 +285,6 @@
                 submitWithRetry();
             });
             
-            // Add focus animation to form inputs
             document.querySelectorAll('input, select, textarea').forEach(input => {
                 input.addEventListener('focus', function() {
                     this.parentElement.style.transform = 'scale(1.02)';
@@ -320,7 +296,6 @@
                 });
             });
             
-            // Add smooth scrolling for internal links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -334,7 +309,6 @@
                 });
             });
             
-            // Add subtle hover effects to form groups
             document.querySelectorAll('.form-group').forEach(group => {
                 group.addEventListener('mouseenter', function() {
                     this.style.backgroundColor = 'rgba(74, 124, 89, 0.05)';
